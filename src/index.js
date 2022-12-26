@@ -7,3 +7,24 @@ const getJSON = async function (tvShow, type = 'episodes') {
     return data;
 };
 const episodes = await getJSON(527);
+const firstEl = episodes.at(0);
+
+const NAME_OF_SHOW = `The Sopranos`;
+const NUMBER_OF_SEASONS = episodes.at(episodes.length - 1).season;
+const AIRDATE = episodes.at(0).airdate.slice(0, 4);
+
+const tvShowTitle = document.querySelector('.tvshow-title');
+const tvShowAirDate = document.querySelector('.airdate');
+const tvShowSeasons = document.querySelector('.seasons-number');
+const seasonDropdown = document.querySelector('.season-dropdown');
+const episodeName = document.querySelector('.card-title');
+
+tvShowTitle.textContent = NAME_OF_SHOW;
+tvShowAirDate.textContent = AIRDATE;
+tvShowSeasons.textContent = NUMBER_OF_SEASONS;
+episodeName.textContent = firstEl.name;
+
+
+
+
+console.log(episodes);
