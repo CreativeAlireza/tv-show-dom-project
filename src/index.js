@@ -24,7 +24,22 @@ tvShowAirDate.textContent = AIRDATE;
 tvShowSeasons.textContent = NUMBER_OF_SEASONS;
 episodeName.textContent = firstEl.name;
 
+
 // functions
+function episodesNumber(params){
+    const seasons = {};
+    let counter = 0;
+    for (let indexSeasons = 0; indexSeasons <= NUMBER_OF_SEASONS; indexSeasons++) {
+        for (let index = 0; index <= params.length; index++) {
+            if(params[index]?.season === indexSeasons)
+                seasons[`season${indexSeasons}`] = ++counter;
+        }
+        counter = 0;
+    }
+
+    return seasons;
+}
+
 function formatterSeasonEpisode(episode) {
     const {season, number} = episode;
     
