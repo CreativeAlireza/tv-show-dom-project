@@ -7,3 +7,28 @@
 body {
     background-color: var(--bs-dark) !important;
 }
+
+figure {
+    display: flex;
+    flex-flow: column;
+    max-width: 220px;
+    min-width: 100%;
+    margin: auto;
+}
+
+img {
+    max-width: 220px;
+    max-height: 150px;
+}
+
+figcaption {
+    background-color: rgba(106, 106, 106, 0.7);
+    color: #fff;
+    font: italic smaller sans-serif;
+    padding: 3px;
+    text-align: center;
+}
+
+.card-img-top {
+    min-width: 100%;
+}
