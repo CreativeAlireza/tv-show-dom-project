@@ -27,6 +27,21 @@ episodeName.textContent = firstEl.name;
 
 
 // functions
+function defaultSelector(element){
+    element.children.item(0).children.item(0).classList.add('active')
+
+    element.addEventListener('click', (e) => {
+        if(e.target.getAttribute('value')){
+            Object.values(element.childNodes)
+                .filter(el => el.nodeName !== "#text")
+                .map(el => {
+                    el.children.item(0).classList.remove('active');
+                    if(el.children.item(0).getAttribute('value') === e.target.getAttribute('value'))
+                        el.children.item(0).classList.add('active')
+                });
+        }
+    })
+}
 
 function chooseSeason(params) {
     season.innerHTML = "";
@@ -44,6 +59,7 @@ function chooseSeason(params) {
     });
 }
 chooseSeason(episodes);
+defaultSelector(season);
 
 
 function episodesNumber(params){
