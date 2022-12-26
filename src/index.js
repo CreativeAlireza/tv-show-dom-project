@@ -24,7 +24,12 @@ tvShowAirDate.textContent = AIRDATE;
 tvShowSeasons.textContent = NUMBER_OF_SEASONS;
 episodeName.textContent = firstEl.name;
 
-
+// functions
+function formatterSeasonEpisode(episode) {
+    const {season, number} = episode;
+    
+    return `${season.toString().padStart(2, '0')}${number.toString().padStart(2, '0')}`
+}
 
 
 console.log(episodes);
