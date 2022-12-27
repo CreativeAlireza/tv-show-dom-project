@@ -90,7 +90,42 @@ function calculateEpisodes(number, season){
     return spot;
 }
 
+function addTvShowCardsSearch(params){
+    console.log(params);
+    const tvShowRow = document.querySelector('.tv-show-row');
+    tvShowRow.innerHTML = "";
+
+    params.map(param => {
+        const col = `
+            <div class="col my-2">
+                <div class="card h-100">
+                    <figure>
+                        <a href="${param.url}">
+                            <img
+                            src="${param.image.medium}"
+                            class="card-img-top"
+                            alt="${param.name}">
+                        </a>
+                        <figcaption class="figcaption">
+                            ${formatterSeasonEpisode(param)}
+                        </figcaption>
+                    </figure>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            ${param.name}
+                        </h5>
+                        <p class="card-text text-start">
+                            ${removePTag(param.summary)}
+                        </p>
+                    </div>
+                </div>
+            </div>`;
+        tvShowRow.insertAdjacentHTML("beforeend", col)
+    })
+}
+
 function addTvShowCards(params, seasonValue = 1){
+    console.log(params, seasonValue);
     const tvShowRow = document.querySelector('.tv-show-row');
     tvShowRow.innerHTML = "";
 
@@ -182,12 +217,13 @@ function filterEpisode(el, format) {
 }
 
 function searchEpisodes(params){
+    if(params) addTvShowCards(episodes)
     const eps = [];
     episodes.slice(0).map(el => {
         if (removePTag(el.summary).toLowerCase()
             .includes(params.toLowerCase()) ||
             el.name.toLowerCase()
-            .includes(params.toLowerCase())){
+            .includes(params.toLowerCase().trim())){
                 eps.push(el)
             }
         })
@@ -202,9 +238,11 @@ function searchEpisodes(params){
     if(eps && searchEpisode.value){
         searchResults.classList.remove('d-none')
         results.textContent = eps.length;
-        addTvShowCards(eps, currentSeason);
-    } else 
+        addTvShowCardsSearch(eps);
+    } else {
+        addTvShowCards(eps, currentSeason)
         searchResults.classList.add('d-none')
+    }
 }
 
 // Function Calls
