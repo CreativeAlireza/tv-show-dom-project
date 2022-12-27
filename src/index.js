@@ -26,7 +26,7 @@ tvShowSeasons.textContent = NUMBER_OF_SEASONS;
 episodeName.textContent = firstEl.name;
 
 
-// functions
+// Functions
 function defaultSelector(element){
     element.children.item(0).children.item(0).classList.add('active')
 
@@ -58,19 +58,59 @@ function chooseSeason(params) {
         season.insertAdjacentHTML('beforeend', li);
     });
 }
-chooseSeason(episodes);
-defaultSelector(season);
 
+function calculateEpisodes(number, season){
+    let spot = 0;
+    for (let index = 0; index < season - 1; index++) {
+        spot = Object.keys(number)[index].slice(-1) * Object.values(number)[index];
+    }
+    return spot;
+}
+
+function addTvShowCards(params, seasonValue = 1){
+    const tvShowRow = document.querySelector('.tv-show-row');
+    tvShowRow.innerHTML = "";
+
+    const episodesNum = episodesNumber(params);
+    const dari = calculateEpisodes(episodesNumber(episodes), seasonValue);
+
+    params.slice(0 || dari, episodesNum[`season${seasonValue}`]+dari).map(param => {
+        const col = `
+            <div class="col my-2">
+                <div class="card h-100">
+                    <figure>
+                        <img
+                            src="${param.image.medium}"
+                            class="card-img-top"
+                            alt="${param.name}">
+                        <figcaption class="figcaption">
+                            ${formatterSeasonEpisode(param)}
+                        </figcaption>
+                    </figure>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            ${param.name}
+                        </h5>
+                        <p class="card-text text-start">
+                            ${param.summary}
+                        </p>
+                    </div>
+                </div>
+            </div>`;
+            tvShowRow.insertAdjacentHTML("beforeend", col)
+    })
+}
 
 function episodesNumber(params){
     const seasons = {};
     let counter = 0;
 
-    for (let indexSeasons = 0; indexSeasons <= NUMBER_OF_SEASONS; indexSeasons++)
+    for (let indexSeasons = 0; indexSeasons <= NUMBER_OF_SEASONS; indexSeasons++){
         for (let index = 0; index <= params.length; index++)
             if(params[index]?.season === indexSeasons)
                 seasons[`season${indexSeasons}`] = ++counter;
         counter = 0;
+    }
 
     return seasons;
 }
@@ -78,8 +118,17 @@ function episodesNumber(params){
 function formatterSeasonEpisode(episode) {
     const {season, number} = episode;
     
-    return `${season.toString().padStart(2, '0')}${number.toString().padStart(2, '0')}`
+    return `S${season.toString().padStart(2, '0')}E${number.toString().padStart(2, '0')}`
 }
 
+// Function Calls
+chooseSeason(episodes);
+defaultSelector(season);
+addTvShowCards(episodes)
+
+// Event Listerners
+season.addEventListener('click', (e) => {
+    addTvShowCards(episodes, +e.target.getAttribute('value'));
+})
 
 console.log(episodes);
