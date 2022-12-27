@@ -20,6 +20,7 @@ const seasonDropdown = document.querySelector('.season-dropdown');
 const episodeName = document.querySelector('.card-title');
 const season = document.querySelector('.season-dropdown');
 const episode = document.querySelector('.episode-dropdown');
+const searchEpisode = document.querySelector('.search-episode');
 
 tvShowTitle.textContent = NAME_OF_SHOW;
 tvShowAirDate.textContent = AIRDATE;
@@ -81,9 +82,9 @@ function removePTag(params) {
 
 function calculateEpisodes(number, season){
     let spot = 0;
-    for (let index = 0; index < season - 1; index++) {
+    for (let index = 0; index < season - 1; index++) 
         spot = Object.keys(number)[index].slice(-1) * Object.values(number)[index];
-    }
+    
     return spot;
 }
 
@@ -178,6 +179,27 @@ function filterEpisode(el, format) {
     });
 }
 
+function searchEpisodes(params){
+    const eps = [];
+    episodes.slice(0).map(el => {
+        if (removePTag(el.summary).toLowerCase()
+            .includes(params.toLowerCase()) ||
+            el.name.toLowerCase()
+            .includes(params.toLowerCase())){
+                eps.push(el)
+            }
+        })
+
+    const currentSeason = Array.from(season.children).map(el => {
+        let season = 0;
+        if(el.children.item(0).classList.contains('active')) 
+        season = el.children.item(0).getAttribute('value');
+            return season;
+    }).filter(el => el).at(0);
+
+    eps && addTvShowCards(eps, currentSeason)
+}
+
 // Function Calls
 chooseSeason(episodes);
 chooseEpisodes(episodes);
@@ -194,4 +216,10 @@ season.addEventListener('click', (e) => {
 episode.addEventListener('click', (e) => {
     filterEpisode(episodes, e.target.getAttribute('value'))
 })
-console.log(episodes);
+
+searchEpisode.addEventListener('input', (e) => {
+    e.preventDefault();
+    searchEpisodes(e.target.value)
+})
+
+// console.log(episodes);
