@@ -61,14 +61,12 @@ function chooseSeason(params) {
 }
 
 function chooseEpisodes(params) {
-    console.log(episode);
     episode.innerHTML = "";
     
     params.map(el => {
-        console.log(el);
         const li = `
             <li>
-                <a class="dropdown-item" href="#" value=${el.name}>
+                <a class="dropdown-item" href="#" value=${formatterSeasonEpisode(el)}>
                 ${formatterSeasonEpisode(el)} - ${el.name} 
                 </a>
             </li>
@@ -139,6 +137,12 @@ function formatterSeasonEpisode(episode) {
     return `S${season.toString().padStart(2, '0')}E${number.toString().padStart(2, '0')}`
 }
 
+function filterEpisode(el, format) {
+    el.filter(item => {
+        if(formatterSeasonEpisode(item) === format) addTvShowCards([item], 1);
+    });
+}
+
 // Function Calls
 chooseSeason(episodes);
 chooseEpisodes(episodes);
@@ -151,5 +155,9 @@ season.addEventListener('click', (e) => {
     addTvShowCards(episodes, +e.target.getAttribute('value'));
 })
 
-
+episode.addEventListener('click', (e) => {
+    // filterEpisode(episode, e.target.getAttribute('value'))
+    filterEpisode(episodes, e.target.getAttribute('value'))
+    // addTvShowCards(episodes, +e.target.getAttribute('value'));
+})
 console.log(episodes);
