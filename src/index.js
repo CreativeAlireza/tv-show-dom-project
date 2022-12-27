@@ -75,6 +75,10 @@ function chooseEpisodes(params, season = 1) {
     });
 }
 
+function removePTag(params) {
+    return params.slice(3, -4)
+}
+
 function calculateEpisodes(number, season){
     let spot = 0;
     for (let index = 0; index < season - 1; index++) {
@@ -110,7 +114,7 @@ function addTvShowCards(params, seasonValue = 1){
                             ${param.name}
                         </h5>
                         <p class="card-text text-start">
-                            ${param.summary}
+                            ${removePTag(param.summary)}
                         </p>
                     </div>
                 </div>
@@ -164,7 +168,7 @@ function filterEpisode(el, format) {
                                 ${item.name}
                             </h5>
                             <p class="card-text text-start">
-                                ${item.summary}
+                                ${removePTag(item.summary)}
                             </p>
                         </div>
                     </div>
