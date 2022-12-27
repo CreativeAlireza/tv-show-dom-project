@@ -60,10 +60,10 @@ function chooseSeason(params) {
     });
 }
 
-function chooseEpisodes(params) {
+function chooseEpisodes(params, season = 1) {
     episode.innerHTML = "";
     
-    params.map(el => {
+    params.filter(el => el.season === season).map(el => {
         const li = `
             <li>
                 <a class="dropdown-item" href="#" value=${formatterSeasonEpisode(el)}>
@@ -87,10 +87,10 @@ function addTvShowCards(params, seasonValue = 1){
     const tvShowRow = document.querySelector('.tv-show-row');
     tvShowRow.innerHTML = "";
 
-    const episodesNum = episodesNumber(params);
+    // const episodesNum = episodesNumber(params);
     const dari = calculateEpisodes(episodesNumber(episodes), seasonValue);
 
-    params.slice(0 || dari, episodesNum[`season${seasonValue}`] + dari).map(param => {
+    params.slice(0 || dari, episodesNumber(episodes)[`season${seasonValue}`] + dari).map(param => {
         const col = `
             <div class="col my-2">
                 <div class="card h-100">
@@ -180,6 +180,7 @@ addTvShowCards(episodes)
 // Event Listerners
 season.addEventListener('click', (e) => {
     addTvShowCards(episodes, +e.target.getAttribute('value'));
+    chooseEpisodes(episodes, +e.target.getAttribute('value'))
 })
 
 episode.addEventListener('click', (e) => {
