@@ -22,6 +22,7 @@ const season = document.querySelector('.season-dropdown');
 const episode = document.querySelector('.episode-dropdown');
 const searchEpisode = document.querySelector('.search-episode');
 const searchResults = document.querySelector('.search-results');
+const results = document.querySelector('.results');
 
 tvShowTitle.textContent = NAME_OF_SHOW;
 tvShowAirDate.textContent = AIRDATE;
@@ -200,7 +201,8 @@ function searchEpisodes(params){
 
     if(eps && searchEpisode.value){
         searchResults.classList.remove('d-none')
-        addTvShowCards(eps, currentSeason)
+        results.textContent = eps.length;
+        addTvShowCards(eps, currentSeason);
     } else 
         searchResults.classList.add('d-none')
 }
