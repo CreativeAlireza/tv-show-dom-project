@@ -90,7 +90,7 @@ function addTvShowCards(params, seasonValue = 1){
     const episodesNum = episodesNumber(params);
     const dari = calculateEpisodes(episodesNumber(episodes), seasonValue);
 
-    params.slice(0 || dari, episodesNum[`season${seasonValue}`]+dari).map(param => {
+    params.slice(0 || dari, episodesNum[`season${seasonValue}`] + dari).map(param => {
         const col = `
             <div class="col my-2">
                 <div class="card h-100">
@@ -113,7 +113,7 @@ function addTvShowCards(params, seasonValue = 1){
                     </div>
                 </div>
             </div>`;
-            tvShowRow.insertAdjacentHTML("beforeend", col)
+        tvShowRow.insertAdjacentHTML("beforeend", col)
     })
 }
 
@@ -139,7 +139,34 @@ function formatterSeasonEpisode(episode) {
 
 function filterEpisode(el, format) {
     el.filter(item => {
-        if(formatterSeasonEpisode(item) === format) addTvShowCards([item], 1);
+        if(formatterSeasonEpisode(item) === format){
+            const tvShowRow = document.querySelector('.tv-show-row');
+            tvShowRow.innerHTML = "";
+        
+            const col = `
+                <div class="col my-2">
+                    <div class="card h-100">
+                        <figure>
+                            <img
+                                src="${item.image.medium}"
+                                class="card-img-top"
+                                alt="${item.name}">
+                            <figcaption class="figcaption">
+                                ${formatterSeasonEpisode(item)}
+                            </figcaption>
+                        </figure>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                ${item.name}
+                            </h5>
+                            <p class="card-text text-start">
+                                ${item.summary}
+                            </p>
+                        </div>
+                    </div>
+                </div>`;
+            tvShowRow.insertAdjacentHTML("beforeend", col)
+        }
     });
 }
 
@@ -156,8 +183,6 @@ season.addEventListener('click', (e) => {
 })
 
 episode.addEventListener('click', (e) => {
-    // filterEpisode(episode, e.target.getAttribute('value'))
     filterEpisode(episodes, e.target.getAttribute('value'))
-    // addTvShowCards(episodes, +e.target.getAttribute('value'));
 })
 console.log(episodes);
