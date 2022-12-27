@@ -95,10 +95,12 @@ function addTvShowCards(params, seasonValue = 1){
             <div class="col my-2">
                 <div class="card h-100">
                     <figure>
-                        <img
+                        <a href="${param.url}">
+                            <img
                             src="${param.image.medium}"
                             class="card-img-top"
                             alt="${param.name}">
+                        </a>
                         <figcaption class="figcaption">
                             ${formatterSeasonEpisode(param)}
                         </figcaption>
@@ -147,10 +149,12 @@ function filterEpisode(el, format) {
                 <div class="col my-2">
                     <div class="card h-100">
                         <figure>
-                            <img
+                            <a href="${item.url}">
+                                <img
                                 src="${item.image.medium}"
                                 class="card-img-top"
                                 alt="${item.name}">
+                            </a>
                             <figcaption class="figcaption">
                                 ${formatterSeasonEpisode(item)}
                             </figcaption>
