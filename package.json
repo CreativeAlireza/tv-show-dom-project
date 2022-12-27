@@ -1,5 +1,25 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.0-alpha1"
-  }
+    "bootstrap": "^5.3.0-alpha1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "name": "tv-show",
+  "description": "This is an APS project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CreativeAlireza/tv-show-dom-project.git"
+  },
+  "author": "Alireza Rahimi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CreativeAlireza/tv-show-dom-project/issues"
+  },
+  "homepage": "https://github.com/CreativeAlireza/tv-show-dom-project#readme"
 }
