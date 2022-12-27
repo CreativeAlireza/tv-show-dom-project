@@ -19,6 +19,7 @@ const tvShowSeasons = document.querySelector('.seasons-number');
 const seasonDropdown = document.querySelector('.season-dropdown');
 const episodeName = document.querySelector('.card-title');
 const season = document.querySelector('.season-dropdown');
+const episode = document.querySelector('.episode-dropdown');
 
 tvShowTitle.textContent = NAME_OF_SHOW;
 tvShowAirDate.textContent = AIRDATE;
@@ -56,6 +57,23 @@ function chooseSeason(params) {
             </li>
         `;
         season.insertAdjacentHTML('beforeend', li);
+    });
+}
+
+function chooseEpisodes(params) {
+    console.log(episode);
+    episode.innerHTML = "";
+    
+    params.map(el => {
+        console.log(el);
+        const li = `
+            <li>
+                <a class="dropdown-item" href="#" value=${el.name}>
+                ${formatterSeasonEpisode(el)} - ${el.name} 
+                </a>
+            </li>
+        `;
+        episode.insertAdjacentHTML('beforeend', li);
     });
 }
 
@@ -123,12 +141,15 @@ function formatterSeasonEpisode(episode) {
 
 // Function Calls
 chooseSeason(episodes);
+chooseEpisodes(episodes);
 defaultSelector(season);
+defaultSelector(episode);
 addTvShowCards(episodes)
 
 // Event Listerners
 season.addEventListener('click', (e) => {
     addTvShowCards(episodes, +e.target.getAttribute('value'));
 })
+
 
 console.log(episodes);
