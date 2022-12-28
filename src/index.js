@@ -22,6 +22,7 @@ async function main() {
     const searchEpisode = document.querySelector('.search-episode');
     const searchResults = document.querySelector('.search-results');
     const results = document.querySelector('.results');
+    const tvShowRow = document.querySelector('.tv-show-row');
     
     tvShowTitle.textContent = NAME_OF_SHOW;
     tvShowAirDate.textContent = AIRDATE;
@@ -89,7 +90,6 @@ async function main() {
     }
     
     function addTvShowCardsSearch(params){
-        const tvShowRow = document.querySelector('.tv-show-row');
         tvShowRow.innerHTML = "";
     
         params.map(param => {
@@ -125,7 +125,6 @@ async function main() {
     }
     
     function addTvShowCards(params, seasonValue = 1){
-        const tvShowRow = document.querySelector('.tv-show-row');
         tvShowRow.innerHTML = "";
     
         const dari = calculateEpisodes(episodesNumber(episodes), seasonValue);
@@ -185,7 +184,6 @@ async function main() {
     function filterEpisode(el, format) {
         el.filter(item => {
             if(formatterSeasonEpisode(item) === format){
-                const tvShowRow = document.querySelector('.tv-show-row');
                 tvShowRow.innerHTML = "";
 
                 let summ = item.summary;
