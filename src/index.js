@@ -17,8 +17,6 @@ async function main() {
     const tvShowTitle = document.querySelector('.tvshow-title');
     const tvShowAirDate = document.querySelector('.airdate');
     const tvShowSeasons = document.querySelector('.seasons-number');
-    const seasonDropdown = document.querySelector('.season-dropdown');
-    const episodeName = document.querySelector('.card-title');
     const season = document.querySelector('.season-dropdown');
     const episode = document.querySelector('.episode-dropdown');
     const searchEpisode = document.querySelector('.search-episode');
@@ -28,7 +26,6 @@ async function main() {
     tvShowTitle.textContent = NAME_OF_SHOW;
     tvShowAirDate.textContent = AIRDATE;
     tvShowSeasons.textContent = NUMBER_OF_SEASONS;
-    // episodeName.textContent = firstEl.name;
     
     
     // Functions
@@ -96,6 +93,9 @@ async function main() {
         tvShowRow.innerHTML = "";
     
         params.map(param => {
+            let summ = param.summary;
+            if(param.summary.length > 130) 
+                summ = `${removePTag(param.summary).slice(0, 130)}...`;
             const col = `
                 <div class="col my-2">
                     <div class="card h-100">
@@ -115,7 +115,7 @@ async function main() {
                                 ${param.name}
                             </h5>
                             <p class="card-text text-start">
-                                ${removePTag(param.summary)}
+                                ${summ}
                             </p>
                         </div>
                     </div>
@@ -128,10 +128,12 @@ async function main() {
         const tvShowRow = document.querySelector('.tv-show-row');
         tvShowRow.innerHTML = "";
     
-        // const episodesNum = episodesNumber(params);
         const dari = calculateEpisodes(episodesNumber(episodes), seasonValue);
     
         params.slice(0 || dari, episodesNumber(episodes)[`season${seasonValue}`] + dari).map(param => {
+            let summ = param.summary;
+            if(param.summary.length > 130) 
+                summ = `${removePTag(param.summary).slice(0, 130)}...`;
             const col = `
                 <div class="col my-2">
                     <div class="card h-100">
@@ -151,7 +153,7 @@ async function main() {
                                 ${param.name}
                             </h5>
                             <p class="card-text text-start">
-                                ${removePTag(param.summary)}
+                                ${summ}
                             </p>
                         </div>
                     </div>
@@ -185,7 +187,11 @@ async function main() {
             if(formatterSeasonEpisode(item) === format){
                 const tvShowRow = document.querySelector('.tv-show-row');
                 tvShowRow.innerHTML = "";
-            
+
+                let summ = item.summary;
+                if(item.summary.length > 130) 
+                    summ = `${removePTag(item.summary).slice(0, 130)}...`;
+
                 const col = `
                     <div class="col my-2">
                         <div class="card h-100">
@@ -205,7 +211,7 @@ async function main() {
                                     ${item.name}
                                 </h5>
                                 <p class="card-text text-start">
-                                    ${removePTag(item.summary)}
+                                    ${summ}
                                 </p>
                             </div>
                         </div>
